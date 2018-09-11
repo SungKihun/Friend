@@ -242,6 +242,7 @@ public class FriendService {
 
 	   public String test()
 	   {
-		   return "zz";
+		   STring s = "1";
+		   return s;
 	   }
 }
