@@ -239,4 +239,10 @@ public class FriendService {
 	      popularMap.put("popularIndex", useridList);
 	      return popularMap;
 	   }
+
+	   public String test()
+	   {
+		   STring s = "1";
+		   return s;
+	   }
 }
