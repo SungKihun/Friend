@@ -239,9 +239,4 @@ public class FriendService {
 	      popularMap.put("popularIndex", useridList);
 	      return popularMap;
 	   }
-
-	   public void test()
-	   {
-		   return;
-	   }
 }
