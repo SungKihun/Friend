@@ -1,0 +1,12 @@
+package com.example.demo.repository;
+
+import org.jboss.logging.Param;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.example.demo.model.User;
+
+public interface FriendsRepository extends JpaRepository<User, Integer>{
+	@Query(value = "select * from user where si = :si and gu = :gu and gender = :gender", nativeQuery = true)
+	public User SearchFriend(@Param("si") int si, @Param("gu") int gu, @Param("gender") boolean gender);
+}

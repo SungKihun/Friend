@@ -1,0 +1,6 @@
+package com.example.repository;
+
+@Repository
+public interface UserRepository extends JpaRepository<UserEntity, Long>, UserRepositoryCustom {
+    UserEntity findByUsername(@Param("username") String username);
+}

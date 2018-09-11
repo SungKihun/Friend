@@ -1,0 +1,76 @@
+package com.example.service;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.repository.InfoRepository;
+import com.example.repository.UserRepository;
+
+import model.Info;
+import model.User;
+
+@Service
+public class UserService {
+	@Autowired 
+	private UserRepository userRepository;
+	@Autowired 
+	private InfoRepository infoRepository;
+	
+	//사이트 정보
+	public List<Info> GetInfo() {
+		List<Info> info = infoRepository.findAll(); 
+		return info;
+	}
+	
+	//로그인
+	public Boolean LoginUser(User user) {
+		Object returnUser =  userRepository.CheckLogin(user.getId(), user.getPw());
+		 
+		//회원정보있으면 true 없으면 false
+		Boolean findYn;
+		if (returnUser != null) {
+			findYn = true;
+		}else {
+			findYn = false;
+		}
+			
+		return findYn;
+				
+	}
+	
+	//회원저장
+	public Boolean SaveUser(User user) {
+		
+		User returnUser =  userRepository.save(user);
+		 
+		//성공하면 true 실패하면 false
+		Boolean succYn;
+		if (returnUser != null) {
+			succYn = true;
+		}else {
+			succYn = false;
+		}
+			
+		return succYn;
+				
+	}
+
+	//이메일 체크
+	public Boolean GetCheckEmail(User user) {
+		System.out.println("getcheckemail : " + user.getId());
+		User returnUser = userRepository.findById(user.getId());
+		
+		//사용가능하면 true 불가능하면 false
+		Boolean useYn;
+		if (returnUser != null) {
+			useYn = false;
+		}else {
+			useYn = true;
+		}
+			
+		return useYn;
+		
+	}
+
+}

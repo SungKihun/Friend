@@ -1,0 +1,18 @@
+package com.example.demo.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.Interest;
+import com.example.demo.repository.InterestRepository;
+
+@Service
+public class InterestService {
+	@Autowired
+	private InterestRepository interestRepository;
+	
+	public Interest GetInterest() {
+		
+		return interestRepository.findAll();
+	}
+}

@@ -1,0 +1,6 @@
+package com.example.model;
+
+public class UserRole {
+	User,	//0
+	ADMIN	//1
+}

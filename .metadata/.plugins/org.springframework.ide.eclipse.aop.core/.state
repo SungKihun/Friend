@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop-reference-model>
+<aop-project name="Mybatis"/>
+<aop-project name="Login"/>
+<aop-project name="RESTApi"/>
+<aop-project name="WebSocket"/>
+<aop-project name="QueryDSL"/>
+<aop-project name="SpringData"/>
+<aop-project name="QueryDSLTest"/>
+</aop-reference-model>

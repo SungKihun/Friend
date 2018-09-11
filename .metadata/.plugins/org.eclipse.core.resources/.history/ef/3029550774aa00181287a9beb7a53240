@@ -1,0 +1,26 @@
+import javax.annotation.Generated;
+
+import com.example.model.UserEntity;
+import com.querydsl.core.types.PathMetadata;
+import com.querydsl.core.types.dsl.DateTimePath;
+import com.querydsl.core.types.dsl.EntityPathBase;
+
+@Generated("com.querydsl.codegen.EntitySerializer")
+public class QUserEntity extends EntityPathBase<UserEntity>{
+
+	private static final long serialVersionUID = -1270685350L;
+
+	public static final QUserEntity userEntity =new QUserEntity("userEntity");
+	
+	public final DateTimePath<java.util.Date> createdAt = createDateTime("createdAt", java.util.Date.class);
+	
+	
+	public QUserEntity(Class<? extends UserEntity> type, PathMetadata metadata) {
+		super(type, metadata);
+		// TODO Auto-generated constructor stub
+	}
+	public QUserEntity(String string) {
+		// TODO Auto-generated constructor stub
+	}
+
+}

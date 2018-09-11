@@ -1,0 +1,89 @@
+package com.example.service;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.model.User;
+import com.example.model.Userinterest;
+import com.example.repository.FriendsRepository;
+import com.example.repository.UserRepository;
+
+@Service
+public class FriendService {
+	@Autowired
+	private FriendsRepository friendsRepository;
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	EntityManager entitymanager;
+	
+	public List<User> SearchFriends(int si, int gu, boolean gender, int minAge, int maxAge) {
+		// TODO Auto-generated method stub
+		CriteriaBuilder builder=entitymanager.getCriteriaBuilder();
+		CriteriaQuery<User> query=builder.createQuery(User.class);
+		Root<User> root=query.from(User.class);
+		List<Predicate> predicates=new ArrayList<Predicate>();
+		Date min=new Date();
+		Date max=new Date();
+		min.setYear(min.getYear()-minAge);
+		max.setYear(max.getYear()-maxAge);
+		if(si != 0) {
+			predicates.add(builder.equal(root.get("si"), si));
+		}
+		if(minAge!=0 && maxAge!=0) {
+			//ge : 크거나 같은지
+			predicates.add(builder.between(root.get("birth"), min, max));
+		}
+//		if(maxAge!=0){
+//			// le : 작거나 같은지
+//			predicates.add(builder.le(root.get("birth"), (Expression<? extends Number>) max));
+//		}
+		Subquery<Userinterest> sub=query.subquery(Userinterest.class);
+		Root<Userinterest> subroot=query.from(Userinterest.class);
+		//select * from user where seq=(select seq from userinterest where code = interest
+//		if(interest!=0) {
+//			//where (id=3 or pw=2) and email=1 
+//			
+//			Predicate pd=builder.equal(subroot.get("code"), interest);
+//			sub.select(subroot.get("userid"));
+//			sub.where(pd);
+//			sub.from(Userinterest.class);
+//			predicates.add(builder.and(builder.in(root.get("userid")).value(sub)));
+//		}
+		
+		query.select(root).where(predicates.toArray(new Predicate[] {}));
+		TypedQuery<User> typedQuery = entitymanager.createQuery(query);
+		List<User> userList = typedQuery.getResultList();
+		return userList;
+	}
+	
+	public List<Map<String, Object>> AllSearchFriend(){
+		System.out.println("AllSearchFriend");
+		return friendsRepository.searchFriend();
+	}
+	
+	public User FriendsMe(int seq) {
+		
+		return null;
+	}
+}
+
+
+
+
+
+

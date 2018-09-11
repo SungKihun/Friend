@@ -1,0 +1,17 @@
+package com.example.demo.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.repository.FriendsRepository;
+
+@Service
+public class SearchFriendService {
+	@Autowired
+	private FriendsRepository friendsRepository;
+	public void SearchFriends(int si, int gu, boolean gender) {
+		// TODO Auto-generated method stub
+		System.out.println(si+gu+gender+"");
+	}
+	
+}

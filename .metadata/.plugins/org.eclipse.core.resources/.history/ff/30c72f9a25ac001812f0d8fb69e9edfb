@@ -1,0 +1,51 @@
+package com.example.demo.model;
+
+import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import lombok.Data;
+
+@Entity
+@Data
+public class User {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int seq;  //순번
+	private String id; //아이디
+	private String pw; //패스워드
+	private String name; //이름
+	private String img1; //사진1
+	private String img2; //사진2
+	private String img3; //사진3
+	@Column(name = "city", nullable=false)
+	private int si; //시
+	@Column(nullable=false)
+	private int gu; //구
+	@Column(nullable=false)
+	private boolean areayn; //지역공개여부
+	private Date birth;//생년월일
+	private boolean birthyn; //생년월일공개여부
+	private boolean gender; //성별
+	private String phone; //핸드폰번호
+	private boolean phoneyn; //핸드폰번호공개여부
+	private String msg; //원하는친구
+	private String intro; //자기소개
+	private boolean auth; //인증코드
+	private String authkey; //이메일 인증키
+	private int jointype;//가입방식
+	
+	public void update(User user) {
+		this.name = user.name;
+		this.areayn = user.areayn;
+		this.birth = user.birth;
+		this.si = user.si;
+	}
+	
+}

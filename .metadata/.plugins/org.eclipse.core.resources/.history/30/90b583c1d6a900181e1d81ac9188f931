@@ -1,0 +1,59 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.4.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+configurations {
+	providedRuntime
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+sourceSets{
+	main{
+		java{
+			srcDirs 'scr/main/java', 'scr/main/generated'
+		}
+	}
+}
+
+task generateQueryDSL(type: JavaCompile, group: 'build', description: 'Generates the QueryDSL query types'){
+	file(new File(projectDir, "/src/main/generated")).deleteDir()
+	file(new File(projectDir, "/src/main/generated")).mkdirs()
+	source = sourceSets.main.java
+	classpath = configurations.compile + configurations.compileOnly
+	options.compilerArgs = [
+		"-proc:only",
+		"-processor", "com.querydsl.apt.jpa.JPAAnnotationProcessor"
+	]
+	destinationDir = file('src/main/generated')
+}
+
+compileJava{
+	dependsOn generateQueryDSL
+}

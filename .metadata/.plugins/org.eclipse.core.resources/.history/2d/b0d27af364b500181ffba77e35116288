@@ -1,0 +1,17 @@
+package com.example.config;
+
+@EnableWebSocketMessageBroker
+@Configuration
+public class ChatRoomConfig implements WebSocketMessageBrokerConfigurer {
+
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+    	registry.addEndpoint("/alarm_socket").setAllowedOrigins("*").withSockJS();
+    }
+
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry registry) {
+        registry.setApplicationDestinationPrefixes("/app");
+        registry.enableSimpleBroker("/topic");
+    }
+}

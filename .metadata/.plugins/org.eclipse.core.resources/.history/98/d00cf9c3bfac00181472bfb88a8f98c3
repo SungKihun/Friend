@@ -1,0 +1,236 @@
+package com.example.model;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.PostPersist;
+import javax.persistence.PrePersist;
+
+import lombok.Data;
+
+@Entity
+public class User {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "userid")
+	private int userid;  //순번
+	@Column(name = "email")
+	private String email; //아이디
+	private String pw; //패스워드
+	private String name; //이름
+	private String img1; //사진1
+	private String img2; //사진2
+	private String img3; //사진3
+	@Column(name = "city", nullable=false)
+	private int si; //시
+	@Column(nullable=false)
+	private int gu; //구
+	@Column(nullable=false)
+	private boolean areayn; //지역공개여부
+	private Date birth;//생년월일
+	private boolean birthyn; //생년월일공개여부
+	private boolean gender; //성별
+	private String phone; //핸드폰번호
+	private boolean phoneyn; //핸드폰번호공개여부
+	private String msg; //원하는친구
+	private String intro; //자기소개
+	private boolean auth; //인증여부
+	private String authkey; //이메일 인증키
+	private int jointype;//가입방식
+	private int age;//나이
+	
+	public void update(User user) {
+		this.name = user.name;
+		this.areayn = user.areayn;
+		this.birth = user.birth;
+		this.si = user.si;
+	}
+	
+//	@PostPersist
+//	public void beforeAge() {
+//		age = (new Date().getYear() - birth.getYear()) +1;
+//	}
+
+	public int getUserid() {
+		return userid;
+	}
+
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
+
+	public String getEmal() {
+		return email;
+	}
+
+	public void setEmal(String id) {
+		this.email = id;
+	}
+
+	public String getPw() {
+		return pw;
+	}
+
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getImg1() {
+		return img1;
+	}
+
+	public void setImg1(String img1) {
+		this.img1 = img1;
+	}
+
+	public String getImg2() {
+		return img2;
+	}
+
+	public void setImg2(String img2) {
+		this.img2 = img2;
+	}
+
+	public String getImg3() {
+		return img3;
+	}
+
+	public void setImg3(String img3) {
+		this.img3 = img3;
+	}
+
+	public int getSi() {
+		return si;
+	}
+
+	public void setSi(int si) {
+		this.si = si;
+	}
+
+	public int getGu() {
+		return gu;
+	}
+
+	public void setGu(int gu) {
+		this.gu = gu;
+	}
+
+	public boolean isAreayn() {
+		return areayn;
+	}
+
+	public void setAreayn(boolean areayn) {
+		this.areayn = areayn;
+	}
+
+	public Date getBirth() {
+		return birth;
+	}
+
+	public void setBirth(Date birth) {
+		this.birth = birth;
+	}
+
+	public boolean isBirthyn() {
+		return birthyn;
+	}
+
+	public void setBirthyn(boolean birthyn) {
+		this.birthyn = birthyn;
+	}
+
+	public boolean isGender() {
+		return gender;
+	}
+
+	public void setGender(boolean gender) {
+		this.gender = gender;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public boolean isPhoneyn() {
+		return phoneyn;
+	}
+
+	public void setPhoneyn(boolean phoneyn) {
+		this.phoneyn = phoneyn;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+	public String getIntro() {
+		return intro;
+	}
+
+	public void setIntro(String intro) {
+		this.intro = intro;
+	}
+
+	public boolean isAuth() {
+		return auth;
+	}
+
+	public void setAuth(boolean auth) {
+		this.auth = auth;
+	}
+
+	public String getAuthkey() {
+		return authkey;
+	}
+
+	public void setAuthkey(String authkey) {
+		this.authkey = authkey;
+	}
+
+	public int getJointype() {
+		return jointype;
+	}
+
+	public void setJointype(int jointype) {
+		this.jointype = jointype;
+	}
+
+//	public int getAge() {
+//		return age;
+//	}
+//
+//	public void setAge(int age) {
+//		this.age = age;
+//	}
+
+//	@Override
+//	public String toString() {
+//		return "User [seq=" + seq + ", id=" + id + ", pw=" + pw + ", name=" + name + ", img1=" + img1 + ", img2=" + img2
+//				+ ", img3=" + img3 + ", si=" + si + ", gu=" + gu + ", areayn=" + areayn + ", birth=" + birth
+//				+ ", birthyn=" + birthyn + ", gender=" + gender + ", phone=" + phone + ", phoneyn=" + phoneyn + ", msg="
+//				+ msg + ", intro=" + intro + ", auth=" + auth + ", authkey=" + authkey + ", jointype=" + jointype
+//				+ ", age=" + age + "]";
+//	}
+	
+	
+}

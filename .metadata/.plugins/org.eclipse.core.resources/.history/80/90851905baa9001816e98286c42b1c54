@@ -1,0 +1,49 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.4.RELEASE'
+		querydslVersion = "4.1.4"
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+configurations {
+	providedRuntime
+}
+
+dependencies {
+	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	compile 'org.slf4j:slf4j-api:1.7.7'
+	compile group: 'org.hibernate', name: 'hibernate-validator', version: '4.2.0.Fianl'
+	compile group: 'javax.el', name: 'javax.el-api', version: '3.0.0'
+	compile group: 'javax.validation', name: 'validation-api', version: '1.0.0.GA'
+	compile "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+	runtime group: 'org.hsqldb', name: 'hsqldb', version: '2.3.2'
+	// https://mvnrepository.com/artifact/org.projectlombok/lombok
+	compile 'org.projectlombok:lombok:1.18.0'
+	
+	// QueryDSL 설정
+	compile "com.querydsl:querydsl-core:${querydslVersion}"
+	compile "com.querydsl:querydsl-jpa:${querydslVersion}"
+	compile "com.querydsl:querydsl-apt:${querydslVersion}"
+	
+}

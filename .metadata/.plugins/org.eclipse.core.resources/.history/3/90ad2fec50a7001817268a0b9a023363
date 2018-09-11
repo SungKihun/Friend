@@ -1,0 +1,13 @@
+package com.example.demo.service;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class SearchFriendService {
+
+	public void SearchFriends(int si, int gu, boolean gender, int minAge, int maxAge) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}

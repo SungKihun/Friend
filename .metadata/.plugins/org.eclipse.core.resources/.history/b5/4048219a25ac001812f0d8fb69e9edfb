@@ -1,0 +1,65 @@
+package com.example.demo.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.User;
+import com.example.demo.model.Userinterest;
+import com.example.demo.repository.FriendsRepository;
+
+@Service
+public class SearchFriendService {
+	@Autowired
+	private FriendsRepository friendsRepository;
+	@Autowired
+	EntityManager entitymanager;
+	public List<User> SearchFriends(int si, int gu, boolean gender, int interest, int minAge, int maxAge) {
+		// TODO Auto-generated method stub
+		System.out.println(""+si+gu+gender);
+		CriteriaBuilder builder=entitymanager.getCriteriaBuilder();
+		CriteriaQuery<User> query=builder.createQuery(User.class);
+		Root<User> root=query.from(User.class);
+		List<Predicate> predicates=new ArrayList<Predicate>();
+		if(si != 0) {
+			predicates.add(builder.equal(root.get("si"), si));
+		}
+		if(minAge!=0) {
+			//ge : 크거나 같은지
+			predicates.add(builder.ge(root.get("minAge"), minAge));
+		}
+		if(maxAge!=0)	
+			// le : 작거나 같은지
+			predicates.add(builder.le(root.get("maxAge"), maxAge));
+		Subquery<Userinterest> sub=query.subquery(Userinterest.class);
+		Root<Userinterest> subroot=query.from(Userinterest.class);
+		//select * from user where seq=(select seq from userinterest where code = interest
+		if(interest!=0) {
+			//where (id=3 or pw=2) and email=1 
+			
+			Predicate pd=builder.equal(subroot.get("code"), interest);
+			sub.select(subroot.get("seq")).where(pd);
+			predicates.add(builder.and(builder.in(root.get("code")).value(sub)));
+		}
+		
+		
+		return friendsRepository.findBySiAndGuAndGender(si, gu, gender);
+	}
+	
+	
+}
+
+
+
+
+
+

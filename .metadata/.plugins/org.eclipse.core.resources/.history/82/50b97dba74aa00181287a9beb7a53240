@@ -1,0 +1,39 @@
+import javax.annotation.Generated;
+
+import com.example.model.UserEntity;
+import com.example.model.UserRole;
+import com.querydsl.core.types.Path;
+import com.querydsl.core.types.PathMetadata;
+import com.querydsl.core.types.dsl.DateTimePath;
+import com.querydsl.core.types.dsl.EntityPathBase;
+import com.querydsl.core.types.dsl.EnumPath;
+import com.querydsl.core.types.dsl.NumberPath;
+
+import javassist.compiler.ast.Variable;
+
+@Generated("com.querydsl.codegen.EntitySerializer")
+public class QUserEntity extends EntityPathBase<UserEntity>{
+
+	private static final long serialVersionUID = -1270685350L;
+
+	public static final QUserEntity userEntity =new QUserEntity("userEntity");
+	
+	public final DateTimePath<java.util.Date> createdAt = createDateTime("createdAt", java.util.Date.class);
+	
+	public final NumberPath<Long> id = createNumber("id", Long.class);
+	
+	public final EnumPath<UserRole> role = createEnum("role", UserRole.class);
+	
+	public QUserEntity(String string) {
+		// TODO Auto-generated constructor stub
+		super(UserEntity.class, forVariable(Variable));
+	}
+	
+	public QUserEntity(Path<? extends UserEntity> path) {
+		super(path.getType(), path.getMetadata());
+	}
+
+	public QUserEntity(PathMetadata<?> matadata) {
+		super(UserEntity.class, matadata);
+	}
+}

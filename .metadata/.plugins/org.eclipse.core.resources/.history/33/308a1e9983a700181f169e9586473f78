@@ -1,0 +1,21 @@
+package com.example;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+
+import com.example.model.UserEntity;
+import com.example.model.UserRole;
+import com.example.repository.UserRepository;
+
+@SpringBootApplication
+public class SpringDataApplication {
+
+	public static void main(String[] args) {
+		ConfigurableApplicationContext context = SpringApplication.run(SpringDataApplication.class, args);
+		UserRepository userRepository = context.getBean(UserRepository.class);
+		
+		userRepository.save(new UserEntity("윤사장", 60, UserRole.ADMIN));
+		SpringApplication.run(SpringDataApplication.class, args);
+	}
+}

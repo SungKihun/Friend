@@ -1,0 +1,283 @@
+package com.example.model;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.PostPersist;
+import javax.persistence.PrePersist;
+
+import lombok.Data;
+
+@Entity
+public class User {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "userid")
+	private int userid;  //순번
+	@Column(name = "email")
+	private String email; //아이디
+	private String pw; //패스워드
+	private String name; //이름
+	@Column(name = "city")
+	private int city; //시
+	private int gu; //구
+	private byte areayn; //지역공개여부
+	private Date birth;//생년월일
+	private byte birthyn; //생년월일공개여부
+	private byte gender; //성별
+	private String phone; //핸드폰번호
+	private byte phoneyn; //핸드폰번호공개여부
+	private String msg; //원하는친구
+	private String intro; //자기소개
+	private byte auth; //인증여부
+	private String authkey; //이메일 인증키
+	private int jointype;//가입방식
+//	private int age;//나이
+	
+	public void update(User user) {
+		this.name = user.name;
+//		this.areayn = user.areayn;
+		this.birth = user.birth;
+		this.si = user.si;
+	}
+
+	public int getUserid() {
+		return userid;
+	}
+
+
+
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
+
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+
+	public String getPw() {
+		return pw;
+	}
+
+
+
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
+
+
+
+	public String getName() {
+		return name;
+	}
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+	public int getSi() {
+		return si;
+	}
+
+
+
+	public void setSi(int si) {
+		this.si = si;
+	}
+
+
+
+	public int getGu() {
+		return gu;
+	}
+
+
+
+	public void setGu(int gu) {
+		this.gu = gu;
+	}
+
+
+
+	public byte getAreayn() {
+		return areayn;
+	}
+
+
+
+	public void setAreayn(byte areayn) {
+		this.areayn = areayn;
+	}
+
+
+
+	public Date getBirth() {
+		return birth;
+	}
+
+
+
+	public void setBirth(Date birth) {
+		this.birth = birth;
+	}
+
+
+
+	public byte getBirthyn() {
+		return birthyn;
+	}
+
+
+
+	public void setBirthyn(byte birthyn) {
+		this.birthyn = birthyn;
+	}
+
+
+
+	public byte getGender() {
+		return gender;
+	}
+
+
+
+	public void setGender(byte gender) {
+		this.gender = gender;
+	}
+
+
+
+	public String getPhone() {
+		return phone;
+	}
+
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+
+
+	public byte getPhoneyn() {
+		return phoneyn;
+	}
+
+
+
+	public void setPhoneyn(byte phoneyn) {
+		this.phoneyn = phoneyn;
+	}
+
+
+
+	public String getMsg() {
+		return msg;
+	}
+
+
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+
+
+	public String getIntro() {
+		return intro;
+	}
+
+
+
+	public void setIntro(String intro) {
+		this.intro = intro;
+	}
+
+
+
+	public byte getAuth() {
+		return auth;
+	}
+
+
+
+	public void setAuth(byte auth) {
+		this.auth = auth;
+	}
+
+
+
+	public String getAuthkey() {
+		return authkey;
+	}
+
+
+
+	public void setAuthkey(String authkey) {
+		this.authkey = authkey;
+	}
+
+
+
+	public int getJointype() {
+		return jointype;
+	}
+
+
+
+	public void setJointype(int jointype) {
+		this.jointype = jointype;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userid=" + userid + ", email=" + email + ", pw=" + pw + ", name=" + name + ", si=" + si + ", gu="
+				+ gu + ", areayn=" + areayn + ", birth=" + birth + ", birthyn=" + birthyn + ", gender=" + gender
+				+ ", phone=" + phone + ", phoneyn=" + phoneyn + ", msg=" + msg + ", intro=" + intro + ", auth=" + auth
+				+ ", authkey=" + authkey + ", jointype=" + jointype + ", getUserid()=" + getUserid() + ", getEmail()="
+				+ getEmail() + ", getPw()=" + getPw() + ", getName()=" + getName() + ", getSi()=" + getSi()
+				+ ", getGu()=" + getGu() + ", getAreayn()=" + getAreayn() + ", getBirth()=" + getBirth()
+				+ ", getBirthyn()=" + getBirthyn() + ", getGender()=" + getGender() + ", getPhone()=" + getPhone()
+				+ ", getPhoneyn()=" + getPhoneyn() + ", getMsg()=" + getMsg() + ", getIntro()=" + getIntro()
+				+ ", getAuth()=" + getAuth() + ", getAuthkey()=" + getAuthkey() + ", getJointype()=" + getJointype()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
+	}
+	
+	
+//	@PostPersist
+//	public void beforeAge() {
+//		age = (new Date().getYear() - birth.getYear()) +1;
+//	}
+
+	
+
+//	@Override
+//	public String toString() {
+//		return "User [seq=" + seq + ", id=" + id + ", pw=" + pw + ", name=" + name + ", img1=" + img1 + ", img2=" + img2
+//				+ ", img3=" + img3 + ", si=" + si + ", gu=" + gu + ", areayn=" + areayn + ", birth=" + birth
+//				+ ", birthyn=" + birthyn + ", gender=" + gender + ", phone=" + phone + ", phoneyn=" + phoneyn + ", msg="
+//				+ msg + ", intro=" + intro + ", auth=" + auth + ", authkey=" + authkey + ", jointype=" + jointype
+//				+ ", age=" + age + "]";
+//	}
+	
+	
+}

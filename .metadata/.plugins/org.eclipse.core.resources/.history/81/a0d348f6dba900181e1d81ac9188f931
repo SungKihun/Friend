@@ -1,0 +1,39 @@
+package com.example.querydsl;
+
+import java.util.List;
+
+
+import com.querydsl.jpa.JPQLQuery;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
+
+public class UserRepositoryImpl extends QueryDslRepositorySupport implements UserRepositoryCustom{
+
+	public UserRepositoryImpl() {
+		super(userentity);
+	}
+	
+	@Override
+	@Autowired
+	public void setEntityManager(EntityManager entityManager) {
+		super.setEntityManager()
+	}
+	@Override
+	public List findAllLike(String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int maxAge() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int minAge() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

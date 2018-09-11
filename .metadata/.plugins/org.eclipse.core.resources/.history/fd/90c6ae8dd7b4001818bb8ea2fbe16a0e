@@ -1,0 +1,20 @@
+package com.example.repository;
+
+public interface ChatRoomRepository extends JpaRepository<Chatroom, Integer>{
+	
+	//개인창리스트
+	@Query(value="select cr.roomid, cr.roomname, cr.userid from chatroom cr , chatuser cu where cr.roomid = cu.roomid and cr.clubid = 0 and cu.userid = :userid", nativeQuery=true)
+	public List<Map<String,Object>> getChatPersonalList(@Param("userid") int userid);
+	
+   //그룹창리스트
+	@Query(value="select cr.roomid, cr.roomname, cr.userid, cu.clubid, c.name " + 
+						"	 from chatroom cr , clubuser cu, club c " + 
+						"	where cr.clubid = cu.clubid " + 
+						"	  and cr.clubid = c.clubid " + 
+						"	  and cr.clubid != 0 " + 
+						"	  and cu.userstate = 2 " + 
+						"	  and cu.userid = :userid ", 
+			nativeQuery=true)
+	public List<Map<String,Object>> getChatGroupList(@Param("userid") int userid);
+	  
+}

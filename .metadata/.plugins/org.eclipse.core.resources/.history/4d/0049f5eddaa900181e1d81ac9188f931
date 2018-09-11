@@ -1,0 +1,7 @@
+package com.example.querydsl;
+
+import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
+
+public class UserRepositoryImpl extends QueryDslRepositorySupport implements UserRepositoryCustom{
+
+}

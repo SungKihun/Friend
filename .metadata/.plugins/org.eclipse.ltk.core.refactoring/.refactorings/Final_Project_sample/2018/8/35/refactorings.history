@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;UserFunction.java&apos; to &apos;Login/src/main/java/com.example.demo.service&apos;&#x0D;&#x0A;- Original project: &apos;Final_Project_sample&apos;&#x0D;&#x0A;- Destination element: &apos;Login/src/main/java/com.example.demo.service&apos;&#x0D;&#x0A;- Original element: &apos;UserFunction.java&apos;" description="Copy file" destination="=Login/src\/main\/java&lt;com.example.demo.service" element1="friend/src/main/java/com/example/UserFunction.java" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1535606980328" units="0" version="1.0"/>
+</session>

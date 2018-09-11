@@ -1,0 +1,18 @@
+package com.example;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class UserFunction {
+	//리스트를 맵으로 바꿔주는 함수
+	public Map<String, Map<String,Object>> ListToMap(List<Map<String,Object>> list, String keyname){
+		Map<String, Map<String,Object>> map= new HashMap<>(); 
+	
+		for(int j = 0 ; j < list.size(); j++) {
+			String key = list.get(j).get(keyname).toString();
+			map.put(key, list.get(j)); 
+		}
+		return map;
+	}
+}

@@ -1,0 +1,8 @@
+package com.example.model;
+
+//public class UserRole {
+	public enum UserRole{
+		User, //0
+		ADMIN	//1
+	}
+//}

@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    type: org.apache.tomcat.jdbc.pool.DataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mydb?autoReconnect=true&useSSL=false
+    username:
+    password:
+  jpa:
+      hibernate:
+        ddl-auto: update  
+        naming:
+          strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      show-sql: true # 실행 되는 SQL문을 보여 줄지 설정
+      properties:  
+        hibernate.format_sql: true # 형식화된 sql 문을 보여준다. Beautifier 기능이라고 생각하면 된다
+        hibernate.enable_lazy_load_no_trans: true #Lazy Load 를 적용하기 위한 설정
+      database: mysql

@@ -1,0 +1,61 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.8.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+sourceCompatibility = 1.8
+
+ext {
+	springBootVersion = '1.5.8.RELEASE'
+	querydslVersion = "4.1.4"
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	
+	// QueryDSL 설정
+	// https://mvnrepository.com/artifact/com.querydsl/querydsl-core
+	compile group: 'com.querydsl', name: 'querydsl-core', version: '4.1.4'
+	compile group: 'com.querydsl', name: 'querydsl-jpa', version: '4.1.4'
+	compile group: 'com.querydsl', name: 'querydsl-apt', version: '4.1.4'
+}
+
+sourceSets{
+	main{
+		java{
+			srcDirs 'scr/main/java', 'scr/main/generated'
+		}
+	}
+}
+
+task generateQueryDSL(type: JavaCompile, group: 'build', description: 'Generates the QueryDSL query types'){
+	file(new File(projectDir, "/src/main/generated")).deleteDir()
+	file(new File(projectDir, "/src/main/generated")).mkdirs()
+	source = sourceSets.main.java
+	classpath = configurations.compile + configurations.compileOnly
+	options.compilerArgs = [
+		"-proc:only",
+		"-processor", "com.querydsl.apt.jpa.JPAAnnotationProcessor"
+	]
+	destinationDir = file('src/main/generated')
+}
+
+compileJava{
+	dependsOn generateQueryDSL
+}

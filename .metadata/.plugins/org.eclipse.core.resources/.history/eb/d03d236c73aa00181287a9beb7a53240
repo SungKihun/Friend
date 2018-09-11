@@ -1,0 +1,9 @@
+import javax.annotation.Generated;
+
+import com.example.model.UserEntity;
+import com.querydsl.core.types.dsl.EntityPathBase;
+
+@Generated("com.querydsl.codegen.EntitySerializer")
+public class QUserEntity extends EntityPathBase<UserEntity>{
+
+}

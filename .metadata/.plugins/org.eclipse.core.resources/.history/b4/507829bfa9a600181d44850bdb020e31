@@ -1,0 +1,25 @@
+package com.example.demo.service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.Interest;
+import com.example.demo.repository.InterestRepository;
+
+@Service
+public class InterestService {
+	@Autowired
+	private InterestRepository interestRepository;
+	
+	public Interest GetInterestList() {
+		Map<String, String> map = Map<String, String>();
+		for(Interest interest:interestRepository.findAll()) {
+			
+		}
+		return null;
+	}
+}

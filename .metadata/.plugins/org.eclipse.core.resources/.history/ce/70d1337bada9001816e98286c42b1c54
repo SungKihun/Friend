@@ -1,0 +1,23 @@
+package com.example.model;
+
+import javax.persistence.*;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
+@Getter @Setter
+public class Student {
+	@Id
+	@Column(name = "STUDENT_ID")
+	private Long id;
+	private String userName;
+	private String grade;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "SCHOOL_ID")
+	private School school;
+	
+	public Student(String userName) {
+		this.userName = userName;
+	}
+}

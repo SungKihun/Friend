@@ -1,0 +1,45 @@
+package com.example.service;
+
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.hsqldb.lib.HashSet;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.model.School;
+import com.example.model.Student;
+import com.example.repository.SchoolRepository;
+import com.example.repository.StudentRepository;
+
+@Service
+public class SchoolService {
+	@Autowired
+	private SchoolRepository schoolRepository;
+	@Autowired
+	private StudentRepository studentRepository;
+	
+	@Transactional
+	public void findStudentInfo() {
+		School sc1 = new School("예체능고");
+		sc1.registerStudent(new Student("홍길동"));
+		sc1.registerStudent(new Student("유재석"));
+		
+		School sc2 = new School("매력고");
+		sc2.registerStudent(new Student("나라"));
+		sc2.registerStudent(new Student("민하"));
+		
+		
+		schoolRepository.save(new HashSet<School>() {{
+			add(sc1);
+			add(sc2);
+		}});
+		
+		List<Student> schools = schoolRepository.findAll();
+		
+		for(Student s : schools) {
+			System.out.println(s.getUserName() + "," +s.getSchool().getName());
+		}
+	}
+}

@@ -1,0 +1,13 @@
+package com.example.repository;
+
+public interface ChatUserRepository extends JpaRepository<Chatuser, Integer>{
+	
+	//채팅룸의 일반 멤버 리스트
+	@Query(value = "select userid	from chatuser where roomid = :roomid", nativeQuery=true)
+	List<Integer> findChatUser(@Param("roomid") int roomid);
+
+	//채팅룸의 그룹멤버 리스트
+	@Query(value = "select userid from clubuser where userstate = 2 and clubid = :clubid", nativeQuery=true)
+	List<Integer> findClubUser(@Param("clubid")  int clubid);
+	
+}

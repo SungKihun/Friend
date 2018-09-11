@@ -1,0 +1,50 @@
+package com.example.model;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.PostPersist;
+import javax.persistence.PrePersist;
+
+import lombok.Data;
+import lombok.ToString;
+
+@Entity
+@Data @ToString
+public class User {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "userid")
+	private int userid;  //순번
+	@Column(name = "email")
+	private String email; //아이디
+	private String pw; //패스워드
+	private String name; //이름
+	@Column(name = "city")
+	private int city; //시
+	private int gu; //구
+	private byte areayn; //지역공개여부
+	private Date birth;//생년월일
+	private byte birthyn; //생년월일공개여부
+	private byte gender; //성별
+	private String phone; //핸드폰번호
+	private byte phoneyn; //핸드폰번호공개여부
+	private String msg; //원하는친구
+	private String intro; //자기소개
+	private byte auth; //인증여부
+	private String authkey; //이메일 인증키
+	private int jointype;//가입방식
+//	private int age;//나이
+	
+	public void update(User user) {
+		this.name = user.name;
+//		this.areayn = user.areayn;
+		this.birth = user.birth;
+		this.city = user.city;
+	}
+
+}

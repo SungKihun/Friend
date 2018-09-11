@@ -1,0 +1,135 @@
+package com.example.service;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.repository.ChatMsgRepository;
+
+@Service
+public class ChatService {
+	
+	@Autowired
+	private ChatRoomRepository chatRoomRepository;
+	@Autowired
+	private ChatUserRepository chatUserRepository;
+	@Autowired
+	private ChatMsgRepository chatMsgRepository;
+	@Autowired
+	private ChatReadRepository chatReadRepository;
+	@Autowired
+	private UserFunction userFunction;
+	
+	private final SimpMessagingTemplate template;
+    public ChatService(SimpMessagingTemplate template) {
+        this.template = template;
+    }
+	
+	//방생성
+	public void CreateChatRoom(Chatroom chatroom, int touserid) {
+		Chatroom resultroom = chatRoomRepository.save(chatroom);
+
+		if (chatroom.getClubid() == 0 ) { //개인방일때
+			SaveChatUser(resultroom.getRoomid(), chatroom.getUserid());
+			SaveChatUser(resultroom.getRoomid(), touserid);
+		}
+		
+	}
+	
+	//방입장
+	public void ChatComeIn(int roomid, int clubid, int userid) {
+		if (clubid == 0 ) {  //개인방일 때
+			SaveChatUser(roomid, userid);
+		}
+	}
+
+	//멤버생성
+	public void SaveChatUser(int roomid, int userid) {
+		Chatuser chatUser = new Chatuser();
+		chatUser.setRoomid(roomid);
+		chatUser.setUserid(userid);
+		chatUserRepository.save(chatUser);
+		
+	}
+
+	//방 리스트 그룹 리스트 테스트
+	public List<Map<String, Object>> ListChatRoom_group(int userid) {
+		
+		List<Map<String, Object>> groupList = chatRoomRepository.getChatGroupList(userid);
+	
+		return groupList;
+	}
+
+	//방 리스트 개인 리스트 테스트
+	public List<Map<String, Object>> ListChatRoom_personal(int userid) {
+		
+		List<Map<String, Object>> PersonalList = chatRoomRepository.getChatPersonalList(userid);
+	
+		return PersonalList; 
+	}
+
+	//방 리스트
+	public Map<String, Object> ListChatRoom(int userid) {
+		
+		List<Map<String, Object>> groupList = chatRoomRepository.getChatGroupList(userid);
+		List<Map<String, Object>> PersonalList = chatRoomRepository.getChatPersonalList(userid);
+		
+		//맵형태로 바꾸기
+		Map<String , Object> groupMap = userFunction.ListToMap(groupList, "roomid");
+		Map<String , Object> personalMap = userFunction.ListToMap(PersonalList, "roomid");
+		Map<String, Object> resultMap = new HashMap<>();
+		if (groupMap.size() !=0)  resultMap.put("groupChat", groupMap);
+		if (personalMap.size() !=0) resultMap.put("personalChat", personalMap);
+
+		return resultMap;
+	}
+
+	//메세지 보내기
+    public void SendChatMsg(Chatmsg msg, int clubid) {
+    	//DB에 저장
+    	SaveChatMsg(msg); 
+
+    	//채팅 보낼 멤버 
+    	List<Integer> listchatuser = ListChatUser(msg.getRoomid(), clubid);
+    	for (Integer userid : listchatuser) {
+    		template.convertAndSend("/topic/"+userid, msg);
+    	}
+
+    }
+    
+	//채팅메세지저장
+	public void SaveChatMsg(Chatmsg msg) {
+		Chatmsg chatmsg = new Chatmsg();
+		chatmsg.setRoomid(msg.getRoomid());        //방번호
+		chatmsg.setUserid(msg.getUserid());            //작성자
+		chatmsg.setMessage(msg.getMessage());      //메세지
+		chatmsg.setWritedate(new Date());
+		chatMsgRepository.save(chatmsg);
+	}
+
+	//채팅멤버 리스트
+	public List<Integer> ListChatUser(int roomid, int clubid) {
+		List<Integer> userList ;
+    	if (clubid == 0) {   //그룹이 아닐때
+    		userList = chatUserRepository.findChatUser(roomid);
+    	}else {   //그룹일때
+    		userList = chatUserRepository.findClubUser(clubid);
+    		System.out.println("UserList : " + userList) ;
+    	}
+		return  userList;
+    	
+	}
+
+	//메세지읽은 멤버 저장
+	public void SaveChatRead(int msgid, int userid) {
+		Chatread chatread = new Chatread();
+		chatread.setMsgid(msgid);
+		chatread.setUserid(userid);
+		chatReadRepository.save(chatread);
+	}
+
+}

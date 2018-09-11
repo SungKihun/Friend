@@ -1,0 +1,53 @@
+package com.example.controller;
+
+import java.io.IOException;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.example.service.LoginService;
+import com.example.service.SnsServiceFactory;
+import com.github.scribejava.core.model.OAuth2AccessToken;
+
+@Controller
+//@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
+@CrossOrigin(origins = "http://192.168.5.45:3000,http://localhost:3000", maxAge = 3600)
+public class LoginController {
+	
+	@Autowired
+	private LoginService loginService;
+	String name = null;
+	
+	@RequestMapping("loginForm")
+	public void loginForm() {}
+	
+	@RequestMapping("/quicklogin")
+	public String login(String name) {
+		//name 은 naver, facebook, google
+		System.out.println(name);
+		this.name = name;
+		
+		String url = "redirect:" + loginService.getAuthorization(name);
+		System.out.println("url : " + url);
+
+		return url;
+	}
+
+	//authorization code 를 각 사이트에서 발급 받아옴(code)
+	@RequestMapping("callback")
+	public void callback(HttpSession session, String code, String state, String error) throws IOException {
+		System.out.println("callback");
+		session.setAttribute("oauth_state", SnsServiceFactory.STATE);
+		if(error != null) { //에러발생시 오류페이지로 이동
+			System.out.println("error: " + error);
+		}
+		loginService.getQuickSave(session, code, state, name);
+
+
+	}
+}

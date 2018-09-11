@@ -1,0 +1,65 @@
+package com.example.controller;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import javax.persistence.criteria.Predicate;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.model.User;
+import com.example.repository.FriendsRepository;
+import com.example.repository.UserInterestRepository;
+import com.example.repository.UserRepository;
+import com.example.service.FriendService;
+
+@RestController
+@RequestMapping("/friends")
+@CrossOrigin(origins = "http://192.168.0.26:3001", maxAge = 3600)
+public class FriendsController {
+	@Autowired
+	private FriendService friendService;
+	@Autowired
+	private FriendsRepository friendRepository;
+	@Autowired
+	private UserInterestRepository userInterestRepository;
+	@Autowired
+	private UserRepository userRepository;
+	
+	@RequestMapping()
+//	public List<Map<String, Object>> SearchFriends() {
+	public List<Map<String, Object>> SearchFriends(@RequestParam(value="filter", defaultValue="0") Boolean filter, @RequestParam(value="si", defaultValue="0") int city, @RequestParam(value="gu", defaultValue="0") int gu
+				, @RequestParam(value="gender", defaultValue="0") Boolean gender, @RequestParam(value="minAge", defaultValue="0") int minAge, @RequestParam(value="maxAge", defaultValue="0") int maxAge, @RequestParam(value="interest", defaultValue="0") int interest) {
+		if(filter) {
+			System.out.println("filter=true");
+//			System.out.println(userInterestRepository.seqByCode(interest));
+			System.out.println("SearchFriends "+friendService.SearchFriends(city, gu, gender, minAge, maxAge));
+			if(filter) {
+				System.out.println("SearchFriends");
+				System.out.println(""+city+gu+gender+minAge+maxAge);
+				System.out.println("interest "+interest);
+				friendService.SearchFriends(city, gu, gender, minAge, maxAge);
+				System.out.println(userInterestRepository.seqByCode(interest));
+				List<Integer> userList = userInterestRepository.seqByCode(interest);
+				List<User> likeUser = new ArrayList<>();
+//				for(int seq : userList) {
+//					User user = userRepository.findBySeq(seq);
+//					int userAge = (new Date().getYear() - user.getBirth().getYear())+1;
+//					System.out.println(userAge);
+//					if(user.getSi() == si && user.getGu() == gu && user.isGender() == gender && userAge >= minAge && userAge <= maxAge) {
+//						likeUser.add(user);
+//					}
+//				}
+				return null;
+			}
+		System.out.println("filter=false");
+		}
+		return friendService.AllSearchFriend();
+	}
+}

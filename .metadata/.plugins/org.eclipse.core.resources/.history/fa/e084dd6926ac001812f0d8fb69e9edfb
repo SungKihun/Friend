@@ -1,0 +1,22 @@
+package com.example.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+public interface UserRepository extends JpaRepository<User, Integer> {
+
+	//id에 해당하는 모든정보
+	User findById(@Param("id") String id);
+	
+	//seq에 해당하는 모든정보
+	User findBySeq(@Param("seq") int seq);
+	
+	//id, pass check
+	@Query(value="select id  from user where id = :id and pw =:pw", nativeQuery=true)
+	public Object CheckLogin(@Param("id") String id, @Param("pw") String pw);
+	
+	// find pw
+	@Query(value="select pw from user where id = :id", nativeQuery=true)
+	public String passwardById(@Param("id") String id);
+}
