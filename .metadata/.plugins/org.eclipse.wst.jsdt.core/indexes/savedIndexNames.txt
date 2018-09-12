@@ -1,7 +1,6 @@
-INDEX VERSION 1.4+C:\Users\USER\Dropbox\STS\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-3636295006.index
-3008744809.index
-1245957737.index
-3175247704.index
-2284060930.index
+INDEX VERSION 1.4+C:\Friend\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
 544175763.index
+1189541480.index
+3575150857.index
+1814329087.index
+1447556381.index
